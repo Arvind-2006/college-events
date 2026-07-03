@@ -1,0 +1,44 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/username/college-event.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t college-event .'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                docker stop college-event || true
+                docker rm college-event || true
+                docker run -d --name college-event -p 8080:8080 college-event
+                '''
+            }
+        }
+
+        stage('Kubernetes') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
+            }
+        }
+
+    }
+
+}
