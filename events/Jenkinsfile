@@ -6,7 +6,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/Arvind-2006/college-events.git'
+                git branch: 'main', url: 'https://github.com/Arvind-2006/college-events.git'
             }
         }
 
