@@ -19,10 +19,9 @@ spec:
     spec:
       containers:
       - name: college-event
-
-        image: college-event
-
-        imagePullPolicy: Never
+      
+        image: events:v1
+        imagePullPolicy: IfNotPresent
 
         ports:
         - containerPort: 8080
