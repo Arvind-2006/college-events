@@ -18,7 +18,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t college-event .'
+                sh 'docker build -t events .'
             }
         }
 
@@ -27,7 +27,7 @@ pipeline {
                 sh '''
                 docker stop college-event || true
                 docker rm college-event || true
-                docker run -d --name college-event -p 8080:8080 college-event
+                docker run -d --name college-event -p 8081:8081 college-event
                 '''
             }
         }
